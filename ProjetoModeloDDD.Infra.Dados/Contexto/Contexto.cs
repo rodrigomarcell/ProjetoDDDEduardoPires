@@ -3,6 +3,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using ProjetoModeloDDD.Dominio.Entidades;
 using System.Linq;
 using System;
+using ProjetoModeloDDD.Infra.Dados.ConfiguracaoEntity;
 
 namespace ProjetoModeloDDD.Infra.Dados.Contexto
 {
@@ -15,6 +16,8 @@ namespace ProjetoModeloDDD.Infra.Dados.Contexto
 
 
         public DbSet<Cliente> Clientes { get; set; }
+
+        public DbSet<Produto> Produtos { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,6 +35,9 @@ namespace ProjetoModeloDDD.Infra.Dados.Contexto
 
             modelBuilder.Properties<string>()
                 .Configure(p => p.HasMaxLength(100));
+
+            modelBuilder.Configurations.Add(new ClienteConfiguracao());
+            modelBuilder.Configurations.Add(new ProdutoConfiguracao());
         }
 
         public override int SaveChanges()
