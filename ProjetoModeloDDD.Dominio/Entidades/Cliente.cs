@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ProjetoModeloDDD.Dominio.Entidades
 {
@@ -16,6 +17,7 @@ namespace ProjetoModeloDDD.Dominio.Entidades
 
         public bool Ativo { get; set; }
 
+        public virtual IEnumerable<Produto> Produtos { get; set; }
 
         public bool ClienteEspecial(Cliente cliente)
         {
