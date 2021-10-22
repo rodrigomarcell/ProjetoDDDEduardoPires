@@ -27,7 +27,7 @@ namespace ProjetoModeloDDD.Infra.Dados.Contexto
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             modelBuilder.Properties()
-                .Where(p => p.Name == p.ReflectedType.Name + "Id")
+                .Where(p => (p.Name == p.ReflectedType.Name + "Id" || p.Name == "ID"))
                 .Configure(p => p.IsKey());
 
             modelBuilder.Properties<string>()
