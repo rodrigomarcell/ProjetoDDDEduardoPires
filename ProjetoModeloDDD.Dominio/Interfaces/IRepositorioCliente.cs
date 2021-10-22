@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoModeloDDD.Dominio.Interfaces
 {
-    interface IRepositorioCliente : IRepositorioBase<Cliente>
+    public interface IRepositorioCliente : IRepositorioBase<Cliente>
     {
 
     }
