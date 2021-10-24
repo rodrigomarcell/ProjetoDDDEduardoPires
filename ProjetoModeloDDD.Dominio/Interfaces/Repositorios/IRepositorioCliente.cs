@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetoModeloDDD.Dominio.Interfaces
+namespace ProjetoModeloDDD.Dominio.Interfaces.Repositorios
 {
     public interface IRepositorioCliente : IRepositorioBase<Cliente>
     {
