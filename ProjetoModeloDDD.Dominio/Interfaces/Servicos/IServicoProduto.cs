@@ -9,5 +9,6 @@ namespace ProjetoModeloDDD.Dominio.Interfaces.Servicos
 {
     public interface IServicoProduto : IServicoBase<Produto>
     {
+        IEnumerable<Produto> BuscarPorNome(string nome);
     }
 }

@@ -9,5 +9,6 @@ namespace ProjetoModeloDDD.Dominio.Interfaces.Servicos
 {
     public interface IServicoCliente : IServicoBase<Cliente>
     {
+        IEnumerable<Cliente> ObterClientesEspeciais(IEnumerable<Cliente> clientes);
     }
 }
