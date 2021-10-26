@@ -45,7 +45,7 @@ namespace ProjetoModeloDDD.Infra.Dados.Contexto
 
             foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
             {
-                if(entry.State == EntityState.Added)
+                if(entry.State == EntityState.Modified)
                 {
                     entry.Property("DataCadastro").CurrentValue = DateTime.Now;
                 }
