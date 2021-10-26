@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="RepositorioCliente.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
@@ -17,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjetoModeloDDD.Aplicacao\ProjetoModeloDDD.Aplicacao.csproj" />
     <ProjectReference Include="..\ProjetoModeloDDD.Dominio\ProjetoModeloDDD.Dominio.csproj" />
     <ProjectReference Include="..\ProjetoModeloDDD.Infra.Dados\ProjetoModeloDDD.Infra.Dados.csproj" />
   </ItemGroup>
