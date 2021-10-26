@@ -25,7 +25,7 @@ namespace ProjetoModeloDDD.Infra.Dados.Repositorios
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            contexto.Dispose();
         }
 
         public void Excluir(T entidade)
