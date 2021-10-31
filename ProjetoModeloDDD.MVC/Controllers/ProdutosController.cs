@@ -98,7 +98,7 @@ namespace ProjetoModeloDDD.MVC.Controllers
         // POST: ProdutosController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProdutoViewModel produto)
+        public ActionResult Edit(int id, ProdutoViewModel produto)
         {
             if (ModelState.IsValid)
             {

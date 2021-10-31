@@ -66,12 +66,12 @@ namespace ProjetoModeloDDD.Infra.Dados.Contexto
             {
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Property("DataCadastro").CurrentValue = DateTime.Now;
+                    entry.Property("DataCadastro").IsModified = false;
                 }
 
                 if (entry.State == EntityState.Added)
-                {
-                    entry.Property("DataCadastro").IsModified = false;
+                {                    
+                    entry.Property("DataCadastro").CurrentValue = DateTime.Now;                    
                 }
 
             }

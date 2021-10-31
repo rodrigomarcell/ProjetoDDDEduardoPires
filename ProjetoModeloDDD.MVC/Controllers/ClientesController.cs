@@ -114,15 +114,18 @@ namespace ProjetoModeloDDD.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmado(int id)
         {
+            var cliente = _clienteApp.ObterPorId(id);
+
             try
-            {
-                var cliente = _clienteApp.ObterPorId(id);
+            {                
                 _clienteApp.Excluir(cliente);
+                TempData["MensagemAoApagar"] = "O cliente " + cliente.Nome + " foi excluido com sucesso.";
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                TempData["MensagemAoApagar"] = "Houve um erro ao excluir o cliente.";
+                return RedirectToAction("Index");
             }
         }
     }

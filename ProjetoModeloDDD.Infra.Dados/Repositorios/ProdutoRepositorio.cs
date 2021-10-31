@@ -14,12 +14,6 @@ namespace ProjetoModeloDDD.Infra.Dados.Repositorios
 
         protected readonly new Contexto.Contexto _contexto;
 
-        //public IEnumerable<Produto> BuscarPorNome(string nome)
-        //{
-        //    return _contexto.Produtos.Where(p => p.Nome == nome);
-        //}
-
-
         public IEnumerable<Produto> BuscarPorNome(string nome)
         {
             return _contexto.Produto.Where(p => p.Nome == nome);
