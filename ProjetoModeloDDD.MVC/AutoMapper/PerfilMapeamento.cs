@@ -10,6 +10,9 @@ namespace ProjetoModeloDDD.MVC.AutoMapper
         {
             CreateMap<Cliente, ClienteViewModel>();
             CreateMap<ClienteViewModel, Cliente>();
+
+            CreateMap<Produto, ProdutoViewModel>();
+            CreateMap<ProdutoViewModel, Produto>();
         }
     }
 }

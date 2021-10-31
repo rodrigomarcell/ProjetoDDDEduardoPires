@@ -10,7 +10,7 @@
 
         public bool Disponivel { get; set; }
 
-        public int ClientId { get; set; }
+        public int ClienteID { get; set; }
 
         public virtual Cliente Cliente { get; set; }
     }

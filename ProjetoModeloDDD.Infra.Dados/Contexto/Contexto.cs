@@ -1,51 +1,70 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjetoModeloDDD.Dominio.Entidades;
 using System.Linq;
 using System;
-using ProjetoModeloDDD.Infra.Dados.ConfiguracaoEntity;
+//using ProjetoModeloDDD.Infra.Dados.ConfiguracaoEntity;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ProjetoModeloDDD.Infra.Dados.Contexto
 {
     public class Contexto : DbContext
     {
-        public Contexto() : base("DBDDDEduardoPires")
+
+        public Contexto()
         {
-
+            Database.Migrate();            
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=HOMEPC\SQLEXPRESS;Initial Catalog=DDD;Integrated Security=False;Connect Timeout=15;Encrypt=False;Integrated Security=True");
+        }      
 
-        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
 
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes().SelectMany(t => t.GetForeignKeys()).Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {        
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<Cliente>(etd =>
+            {
+                etd.ToTable("Cliente");
+                etd.HasKey(c => c.ID);
+                etd.Property(c => c.Nome).IsRequired().HasMaxLength(151);
+                etd.Property(c => c.SobreNome).IsRequired().HasMaxLength(151);
+                etd.Property(c => c.Email).IsRequired();
+            });
 
-            modelBuilder.Properties()
-                .Where(p => (p.Name == p.ReflectedType.Name + "Id" || p.Name == "ID"))
-                .Configure(p => p.IsKey());
+            modelBuilder.Entity<Produto>(etd =>
+            {
+                etd.ToTable("Produto");
+                etd.HasKey(p => p.ID);
+                etd.Property(p => p.Nome).IsRequired().HasMaxLength(2510);
+                etd.Property(p => p.Valor).IsRequired();
+                
+            });
 
-            modelBuilder.Properties<string>()
-                .Configure(p => p.HasColumnType("varchar"));
+            modelBuilder.Entity<Produto>().Navigation(c => c.Cliente).AutoInclude(true);
 
-            modelBuilder.Properties<string>()
-                .Configure(p => p.HasMaxLength(100));
-
-            modelBuilder.Configurations.Add(new ClienteConfiguracao());
-            modelBuilder.Configurations.Add(new ProdutoConfiguracao());
-        }
+        }        
 
         public override int SaveChanges()
         {
 
             foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
             {
-                if(entry.State == EntityState.Modified)
+                if (entry.State == EntityState.Modified)
                 {
                     entry.Property("DataCadastro").CurrentValue = DateTime.Now;
                 }
@@ -56,9 +75,11 @@ namespace ProjetoModeloDDD.Infra.Dados.Contexto
                 }
 
             }
-                        
+
             return base.SaveChanges();
         }
 
     }
+
+   
 }

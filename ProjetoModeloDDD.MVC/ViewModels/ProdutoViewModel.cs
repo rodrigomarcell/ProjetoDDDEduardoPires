@@ -22,7 +22,8 @@ namespace ProjetoModeloDDD.MVC.ViewModels
         [DisplayName("Disponível?")]
         public bool Disponivel { get; set; }
 
-        public int ClientId { get; set; }
+        [DisplayName("Cliente")]
+        public int ClienteID { get; set; }
 
         public virtual ClienteViewModel Cliente { get; set; }
 

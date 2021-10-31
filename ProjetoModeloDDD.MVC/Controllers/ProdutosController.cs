@@ -42,7 +42,33 @@ namespace ProjetoModeloDDD.MVC.Controllers
         // GET: ProdutosController/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteId = new SelectList(_clienteApp.ObterTodos(), "ClienteId", "Nome");
+            //List<SelectListItem> items = new List<SelectListItem>();
+
+            //items.Add(new SelectListItem { Text = "Action", Value = "0" });
+
+            //items.Add(new SelectListItem { Text = "Drama", Value = "1" });
+
+            //items.Add(new SelectListItem { Text = "Comedy", Value = "2", Selected = true });
+
+            //items.Add(new SelectListItem { Text = "Science Fiction", Value = "3" });
+
+            //ViewBag.MovieType = items;
+
+            //var lista = new List<Cliente>
+
+            //{                
+            //    new Cliente { ID = 1, Nome = "Eduardo Pires" },
+
+            //    new Cliente { ID = 2, Nome = "João Silva" },
+
+            //    new Cliente { ID = 3, Nome = "Fulano de Tal" }
+
+            //};
+            ////ViewBag.ClienteId = new SelectList(_clienteApp.ObterTodos(), "ClienteId", "Nome");
+            //var items2 = new List<string> { "Monday", "Tuesday", "Wednesday" };
+
+
+            ViewBag.ClienteId = new SelectList(_clienteApp.ObterTodos(), "ID", "Nome"); // parametros: lista, valor, texto
             return View();
         }
 
@@ -65,6 +91,7 @@ namespace ProjetoModeloDDD.MVC.Controllers
         public ActionResult Edit(int id)
         {
             var produtoViewModel = _mapper.Map<Produto, ProdutoViewModel>(_produtoApp.ObterPorId(id));
+            ViewBag.ClienteId = new SelectList(_clienteApp.ObterTodos(), "ID", "Nome"); // parametros: lista, valor, texto
             return View(produtoViewModel);
         }
 
